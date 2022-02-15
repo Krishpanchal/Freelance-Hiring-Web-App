@@ -42,6 +42,15 @@ exports.login = (Model) =>
     createSendToken(user, 200, req, res);
   });
 
+exports.logout = catchAsync((req, res, next) => {
+  res.cookie("token", "null", {
+    expires: new Date(Date.now() - 10 * 1000),
+    httpOnly: true,
+  });
+
+  res.status(200).json({ status: "success" });
+});
+
 exports.forgotPassword = (Model) =>
   catchAsync(async (req, res, next) => {
     //Get the posted email
@@ -78,7 +87,6 @@ exports.forgotPassword = (Model) =>
       user.passwordResetExpires = undefined;
       await user.save({ validateBeforeSave: false });
 
-      console.log(err);
       return next(
         new AppError(
           "There was an error sending the email. Try again later",
@@ -122,16 +130,35 @@ exports.resetPassword = (Model) =>
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
-    const users = await Model.find();
+    const doc = await Model.find();
 
-    if (!users) {
+    if (!doc) {
       return next(new AppError("Not found"));
     }
 
     res.status(200).json({
       success: true,
-      results: users.length,
-      users,
+      results: doc.length,
+      data: doc,
+    });
+  });
+
+exports.getMe = (Model, popOptions) =>
+  catchAsync(async (req, res, next) => {
+    let query = Model.findById(req.user.id);
+    if (popOptions) query = query.populate(popOptions);
+
+    const doc = await query;
+
+    if (!doc) {
+      return next(new AppError("No document found with that ID", 404));
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        data: doc,
+      },
     });
   });
 
@@ -149,6 +176,8 @@ exports.getOne = (Model, popOptions) =>
 
     res.status(200).json({
       status: "success",
-      data: doc,
+      data: {
+        data: doc,
+      },
     });
   });
