@@ -8,6 +8,11 @@ exports.getAllUsers = handlerFactory.getAll(User);
 exports.getUser = handlerFactory.getOne(User, false, { path: "projects" });
 exports.getMe = handlerFactory.getMe(User, { path: "projects" });
 
+exports.getMyCollections = handlerFactory.getMyCollections(User);
+exports.saveProjectToCollection = handlerFactory.saveProjectToCollection(User);
+exports.removeProjectFromCollection =
+  handlerFactory.removeProjectFromCollection(User);
+
 // Update Profile
 // Update User Profile ==> /api/v1/users/updateMe
 exports.updateMe = catchAsync(async (req, res, next) => {

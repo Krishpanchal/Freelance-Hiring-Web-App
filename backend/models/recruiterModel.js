@@ -31,6 +31,12 @@ const recruiterSchema = mongoose.Schema({
     type: String,
     default: "recruiter",
   },
+  collections: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Project",
+    },
+  ],
   password: {
     type: String,
     required: [true, "A recruiter must have a password"],

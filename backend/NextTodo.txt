@@ -16,19 +16,23 @@
     Get Me
     Get A
 
-  Collections Left
+  Collections
+    Both Recruiter and Job Hunter Side
+      Add
+      Get My
+      Remove
 
 ********Things remaining********
 
   Job Hunter Side
     Update user certifications
-    Filteration left
+    Filteration and pagination left
 
   Recruiter Hunter Side
     Nothing left 
 
   Projects Side
-    Filteration Left
+    Filteration and pagination Left
 
 
 

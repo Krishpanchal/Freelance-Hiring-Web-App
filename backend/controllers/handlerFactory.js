@@ -3,6 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 const createSendToken = require("../utils/createSendToken");
 const AppError = require("../utils/appError");
 const Email = require("../utils/email");
+const Project = require("../models/projectModel");
 
 exports.signup = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -179,5 +180,73 @@ exports.getOne = (Model, popOptions) =>
       data: {
         data: doc,
       },
+    });
+  });
+
+// Collection controllers
+exports.getMyCollections = (Model) =>
+  catchAsync(async (req, res, next) => {
+    let collections = await Model.findById(req.user.id).populate({
+      path: "collections",
+    });
+
+    collections = collections.collections;
+
+    res.status(200).json({
+      success: true,
+      results: collections.length,
+      data: {
+        collections,
+      },
+    });
+  });
+
+exports.saveProjectToCollection = (Model) =>
+  catchAsync(async (req, res, next) => {
+    // As collection is an array in user field so we will push to project id in collection array
+
+    // 1. Check if the project is already added in the array
+    const projectFound = await Model.findOne({
+      _id: req.user.id,
+      collections: { $elemMatch: { $eq: req.params.id } },
+    });
+
+    if (projectFound) return next(new AppError("Project already added", 404));
+
+    const project =
+      (await Project.findById(req.params.id)) &&
+      (await Model.findByIdAndUpdate(
+        req.user.id,
+        {
+          $push: { collections: req.params.id },
+        },
+        {
+          new: true,
+        }
+      ));
+
+    if (!project) return next(new AppError("Project not found", 404));
+
+    res.status(200).json({
+      success: true,
+      message: "Project added successfully",
+    });
+  });
+
+exports.removeProjectFromCollection = (Model) =>
+  catchAsync(async (req, res, next) => {
+    await Model.findByIdAndUpdate(
+      req.user.id,
+      {
+        $pull: { collections: req.params.id },
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Project removed successfully",
     });
   });

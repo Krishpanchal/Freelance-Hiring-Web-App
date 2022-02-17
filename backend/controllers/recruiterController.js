@@ -8,6 +8,12 @@ exports.getAllRecruiter = handlerFactory.getAll(Recruiter);
 exports.getRecruiter = handlerFactory.getOne(Recruiter);
 exports.getMe = handlerFactory.getMe(Recruiter);
 
+exports.getMyCollections = handlerFactory.getMyCollections(Recruiter);
+exports.saveProjectToCollection =
+  handlerFactory.saveProjectToCollection(Recruiter);
+exports.removeProjectFromCollection =
+  handlerFactory.removeProjectFromCollection(Recruiter);
+
 // Update Profile
 // Update User Profile ==> /api/v1/recruiter/updateMe
 exports.updateMe = catchAsync(async (req, res, next) => {

@@ -20,6 +20,25 @@ router
   .route("/updateMe")
   .patch(protect(Recruiter), recruiterController.updateMe);
 
+// Collection routes
+router.get(
+  "/collections",
+  protect(Recruiter),
+  recruiterController.getMyCollections
+);
+
+router.post(
+  "/collections/:id",
+  protect(Recruiter),
+  recruiterController.saveProjectToCollection
+);
+
+router.delete(
+  "/collections/:id",
+  protect(Recruiter),
+  recruiterController.removeProjectFromCollection
+);
+
 router.route("/").get(recruiterController.getAllRecruiter);
 router.route("/:id").get(recruiterController.getRecruiter);
 
