@@ -25,8 +25,8 @@ const recruiters = JSON.parse(
 
 const importData = async () => {
   try {
-    // await User.create(users, { validateBeforeSave: false });
-    await Recruiter.create(recruiters, { validateBeforeSave: false });
+    await User.create(users, { validateBeforeSave: false });
+    // await Recruiter.create(recruiters, { validateBeforeSave: false });
     console.log("Added successfully");
   } catch (err) {
     console.log(err);
@@ -36,8 +36,8 @@ const importData = async () => {
 
 const deleteData = async () => {
   try {
-    // await User.deleteMany();
-    await Recruiter.deleteMany();
+    await User.deleteMany();
+    // await Recruiter.deleteMany();
     console.log("Done deletion");
   } catch (err) {
     console.log(err);

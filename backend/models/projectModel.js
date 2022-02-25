@@ -23,7 +23,6 @@ const projectSchema = mongoose.Schema({
   tags: [
     {
       type: String,
-      required: [true, "Require atleast two tags"],
     },
   ],
 

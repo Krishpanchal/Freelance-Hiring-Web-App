@@ -4,22 +4,22 @@
     "email": "krishpanchal582@gmail.com",
     "title": "Full Stack Developer",
     "bio": "A Full Stack Developer with 2years of experience",
-    "city": "Mumbai",
-    "type": "Fresher",
-    "availability": ["Internship", "Part Time"],
-    "preferredLocations": ["Banglore", "Hyderabad", "Mumbai"],
-    "skills": ["HTML", "CSS", "Javascript", "Java"],
+    "city": "mumbai",
+    "type": "fresher",
+    "availability": ["internship", "part time"],
+    "preferredLocations": ["banglore", "mumbai"],
+    "skills": ["java"],
     "experience": [
       {
         "companyName": "Google",
         "jobRole": "Frontend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different frontend modules."
       },
       {
         "companyName": "Amazon",
         "jobRole": "Backend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different backend modules."
       }
     ],
@@ -32,22 +32,22 @@
     "email": "yash@gmail.com",
     "title": "Java Developer",
     "bio": "Hello everyone I am a java full stack developer I have knowledge of react js , angular and java script etc",
-    "city": "Shimla",
-    "type": "Intermediate",
-    "availability": ["Internship"],
-    "preferredLocations": ["Banglore", "Hyderabad", "Mumbai"],
-    "skills": ["HTML", "CSS", "Javascript", "Java"],
+    "city": "shimla",
+    "type": "intermediate",
+    "availability": ["internship", "full time"],
+    "preferredLocations": ["banglore", "hyderabad", "mumbai"],
+    "skills": ["html", "css", "javascript"],
     "experience": [
       {
         "companyName": "Google",
         "jobRole": "Frontend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different frontend modules."
       },
       {
         "companyName": "Amazon",
         "jobRole": "Backend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different backend modules."
       }
     ],
@@ -60,22 +60,22 @@
     "email": "loulou@example.com",
     "title": "CSS Developer",
     "bio": "Best csss developer ever",
-    "city": "Banglore",
-    "type": "Professional",
-    "availability": ["Internship", "Full Time"],
-    "preferredLocations": ["Banglore", "Hyderabad", "Mumbai"],
-    "skills": ["HTML", "CSS", "Javascript", "Java"],
+    "city": "banglore",
+    "type": "professional",
+    "availability": ["internship", "full time"],
+    "preferredLocations": ["banglore", "hyderabad", "mumbai"],
+    "skills": ["python", "django"],
     "experience": [
       {
         "companyName": "Google",
         "jobRole": "Frontend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different frontend modules."
       },
       {
         "companyName": "Amazon",
         "jobRole": "Backend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different backend modules."
       }
     ],
@@ -88,22 +88,22 @@
     "email": "jennifer@example.com",
     "title": "Springboot Developer",
     "bio": "Putting together bits and pieces of code.",
-    "city": "Banglore",
-    "type": "Professional",
-    "availability": ["Internship", "Full Time"],
-    "preferredLocations": ["Banglore", "Hyderabad", "Mumbai"],
-    "skills": ["HTML", "CSS", "Javascript", "Java"],
+    "city": "banglore",
+    "type": "professional",
+    "availability": ["internship", "full time"],
+    "preferredLocations": ["banglore", "hyderabad", "delhi"],
+    "skills": ["python", "django"],
     "experience": [
       {
         "companyName": "Google",
         "jobRole": "Frontend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different frontend modules."
       },
       {
         "companyName": "Amazon",
         "jobRole": "Backend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different backend modules."
       }
     ],
@@ -116,22 +116,22 @@
     "email": "kate@example.com",
     "title": "MERN Stack Developer",
     "bio": "Putting together bits and pieces of code.",
-    "city": "Banglore",
-    "type": "Professional",
-    "availability": ["Internship", "Full Time"],
-    "preferredLocations": ["Banglore", "Hyderabad", "Mumbai"],
-    "skills": ["HTML", "CSS", "Javascript", "Java"],
+    "city": "banglore",
+    "type": "professional",
+    "availability": ["internship", "full time"],
+    "preferredLocations": ["delhi"],
+    "skills": ["android", "angular"],
     "experience": [
       {
         "companyName": "Google",
         "jobRole": "Frontend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different frontend modules."
       },
       {
         "companyName": "Amazon",
         "jobRole": "Backend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different backend modules."
       }
     ],
@@ -144,22 +144,22 @@
     "email": "eliana@example.com",
     "title": "MERN Stack Developer",
     "bio": "Putting together bits and pieces of code.",
-    "city": "Banglore",
-    "type": "Professional",
-    "availability": ["Internship", "Full Time"],
-    "preferredLocations": ["Banglore", "Hyderabad", "Mumbai"],
-    "skills": ["HTML", "CSS", "Javascript", "Java"],
+    "city": "banglore",
+    "type": "professional",
+    "availability": ["internship", "full time"],
+    "preferredLocations": ["kolkata"],
+    "skills": ["css", "bootstrap"],
     "experience": [
       {
         "companyName": "Google",
         "jobRole": "Frontend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different frontend modules."
       },
       {
         "companyName": "Amazon",
         "jobRole": "Backend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different backend modules."
       }
     ],
@@ -172,22 +172,22 @@
     "email": "chris@example.com",
     "title": "MERN Stack Developer",
     "bio": "Putting together bits and pieces of code.",
-    "city": "Banglore",
-    "type": "Professional",
-    "availability": ["Internship", "Full Time"],
-    "preferredLocations": ["Banglore", "Hyderabad", "Mumbai"],
-    "skills": ["HTML", "CSS", "Javascript", "Java"],
+    "city": "banglore",
+    "type": "professional",
+    "availability": ["full time"],
+    "preferredLocations": ["banglore", "hyderabad", "mumbai"],
+    "skills": ["c++", "python", "react"],
     "experience": [
       {
         "companyName": "Google",
         "jobRole": "Frontend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different frontend modules."
       },
       {
         "companyName": "Amazon",
         "jobRole": "Backend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different backend modules."
       }
     ],
@@ -200,22 +200,22 @@
     "email": "lisa@example.com",
     "title": "MERN Stack Developer",
     "bio": "Putting together bits and pieces of code.",
-    "city": "Banglore",
-    "type": "Professional",
-    "availability": ["Internship", "Full Time"],
-    "preferredLocations": ["Banglore", "Hyderabad", "Mumbai"],
-    "skills": ["HTML", "CSS", "Javascript", "Java"],
+    "city": "banglore",
+    "type": "professional",
+    "availability": ["part time"],
+    "preferredLocations": ["banglore", "hyderabad", "mumbai"],
+    "skills": ["redux", "javascript"],
     "experience": [
       {
         "companyName": "Google",
         "jobRole": "Frontend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different frontend modules."
       },
       {
         "companyName": "Amazon",
         "jobRole": "Backend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different backend modules."
       }
     ],
@@ -228,22 +228,22 @@
     "email": "john@example.com",
     "title": "MERN Stack Developer",
     "bio": "Putting together bits and pieces of code.",
-    "city": "Banglore",
-    "type": "Professional",
-    "availability": ["Internship", "Full Time"],
-    "preferredLocations": ["Banglore", "Hyderabad", "Mumbai"],
-    "skills": ["HTML", "CSS", "Javascript", "Java"],
+    "city": "banglore",
+    "type": "professional",
+    "availability": ["full time"],
+    "preferredLocations": ["banglore", "mumbai"],
+    "skills": ["ruby"],
     "experience": [
       {
         "companyName": "Google",
         "jobRole": "Frontend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different frontend modules."
       },
       {
         "companyName": "Amazon",
         "jobRole": "Backend Developer",
-        "employmentType": "Internship",
+        "employmentType": "internship",
         "description": "Had worked on alots of different backend modules."
       }
     ],

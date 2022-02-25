@@ -22,18 +22,15 @@
       Get My
       Remove
 
+  Filteration Pagination Searching Done for Projects and Users
+
 ********Things remaining********
 
   Job Hunter Side
     Update user certifications
-    Filteration and pagination left
 
   Recruiter Hunter Side
     Nothing left 
-
-  Projects Side
-    Filteration and pagination Left
-
 
 
 

@@ -51,8 +51,8 @@ const userSchema = mongoose.Schema(
     type: {
       type: String,
       enum: {
-        values: ["Fresher", "Intermediate", "Professional"],
-        message: "Type is either: Fresher, Intermediate, Professional",
+        values: ["fresher", "intermediate", "professional"],
+        message: "Type is either: fresher, intermediate, professional",
       },
     },
 
@@ -60,7 +60,7 @@ const userSchema = mongoose.Schema(
       {
         type: String,
         enum: {
-          values: ["Full Time", "Part Time", "Internship"],
+          values: ["full time", "part time", "internship"],
           message: "Availability is either: Full Time, Part Time, Internship",
         },
       },

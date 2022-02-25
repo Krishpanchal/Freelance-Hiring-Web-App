@@ -49,6 +49,11 @@ exports.updateProject = catchAsync(async (req, res, next) => {
 
   if (!project) return next(new AppError("Project not found", 404));
 
+  // Only the projects belonging to the user can be updated
+  if (req.user.id !== project.user) {
+    return next(new AppError("User not authorized", 404));
+  }
+
   const newProjectData = req.body;
 
   // User Profile Photo

@@ -4,6 +4,7 @@ const createSendToken = require("../utils/createSendToken");
 const AppError = require("../utils/appError");
 const Email = require("../utils/email");
 const Project = require("../models/projectModel");
+const APIFeatures = require("../utils/apiFeatures");
 
 exports.signup = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -131,7 +132,17 @@ exports.resetPassword = (Model) =>
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.find();
+    const features = new APIFeatures(Model.find(), req.query, req.body)
+      .filter()
+      .keyword()
+      .search()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    //EXECUTE QUERY
+    const doc = await features.query; // on awaiting, the query will be executed and returns all the matched docs
+    // Here the query will contain query.sort().select().skip().limit()
 
     if (!doc) {
       return next(new AppError("Not found"));
