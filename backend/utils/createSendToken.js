@@ -27,22 +27,24 @@ module.exports = (user, statusCode, req, res) => {
   if (user.role === "job hunter") {
     res.status(statusCode).json({
       status: "success",
-      token,
+
       data: {
-        user: {
-          name: user.name,
-          email: user.email,
-          photo: user.photo.url ? user.photo : null,
-          role: user.role,
-        },
+        name: user.name,
+        email: user.email,
+        photo: user.photo.url ? user.photo : null,
+        role: user.role,
+        token,
       },
     });
   } else {
     res.status(statusCode).json({
       status: "success",
-      token,
       data: {
-        user,
+        name: user.name,
+        email: user.email,
+        photo: user.photo.url ? user.photo : null,
+        role: user.role,
+        token,
       },
     });
   }

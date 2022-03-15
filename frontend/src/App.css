@@ -1,38 +1,80 @@
-.App {
-  text-align: center;
+/* 
+--- 01 TYPOGRAPHY SYSTGEM
+
+    - Font sizes (px)
+      10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+    - Font Weights
+      Default: 400
+      Medium: 500
+      Semi-bold: 600
+      Bold: 700
+
+      Letter Sapcing
+        -0.5px
+        0.75px
+
+    - Line Heights
+      Default: 1
+      Small: 1.05
+      Medium: 1.2
+      Paragraph default: 1.6
+      
+
+
+--- 02 COLORS
+    Primary:
+    Tints: 
+    Shades:
+    Accents:
+    Greys:
+
+
+--- 05 SHADOWS
+
+--- 06 Border-RADIUS
+      Default: 9px
+
+--- 07 WHITESPACE
+        SPACING SYSTEM (px)
+          2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+*/
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:wght@300&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html {
+  font-size: 62.5%; /*Percentage of user's browser font-size setting*/
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  font-family: "Nunito", sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  color: #555;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/**********************/
+/* GENERAL REUSABLE COMPONENTS */
+/**********************/
+.btn {
+  padding: 1rem 2rem;
+  background: linear-gradient(140deg, #0d6ddf, #001ec1 80%);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.link {
+  text-decoration: none;
+  color: #000;
 }
