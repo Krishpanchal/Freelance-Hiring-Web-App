@@ -8,7 +8,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(projectController.getAllProjects)
+  .post(projectController.getAllProjects)
   .post(protect(User), projectController.addProject);
 router
   .route("/:id")

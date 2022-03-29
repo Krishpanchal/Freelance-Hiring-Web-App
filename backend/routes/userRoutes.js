@@ -34,7 +34,7 @@ router.delete(
 );
 
 // This is kept done as other routes might affect :id
-router.route("/").get(userController.getAllUsers);
+router.route("/").post(userController.getAllUsers);
 router.route("/:id").get(userController.getUser);
 
 module.exports = router;

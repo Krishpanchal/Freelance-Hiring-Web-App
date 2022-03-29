@@ -50,13 +50,15 @@
 
 html {
   font-size: 62.5%; /*Percentage of user's browser font-size setting*/
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: "Nunito", sans-serif !important;
   line-height: 1;
   font-weight: 400;
   color: #555;
+  z-index: 1;
 }
 
 /**********************/
@@ -74,7 +76,45 @@ body {
   letter-spacing: 0.5px;
 }
 
+.btn-small {
+  width: 40px;
+  height: 40px;
+  justify-self: flex-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .link {
   text-decoration: none;
   color: #000;
+}
+
+::-webkit-scrollbar {
+  background: transparent;
+  border-radius: 5px;
+  height: 4px;
+  margin: 0;
+  padding: 0;
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaafb4;
+  border-radius: 5px;
+  height: 50px;
+  min-height: 50px;
+}
+
+.not-found {
+  color: #727272;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 100px 0;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.grid-span {
+  grid-column: 1 / -1;
 }
