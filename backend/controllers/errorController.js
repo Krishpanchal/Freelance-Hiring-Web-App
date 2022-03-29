@@ -10,14 +10,8 @@ module.exports = (err, req, res, next) => {
       message: err.message,
       stack: err.stack,
     });
-  }
-
-  if (
-    process.env.NODE_ENV === "production" ||
-    process.env.NODE_ENV === "PRODUCTION"
-  ) {
+  } else {
     let error = { ...err };
-
     error.message = err.message;
 
     // Wrong mongoose objectID error

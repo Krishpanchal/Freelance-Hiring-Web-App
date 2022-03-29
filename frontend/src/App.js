@@ -1,11 +1,14 @@
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/layout/Layout";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
+import ForgotPassword from "./screens/auth/ForgotPassword";
 import Login from "./screens/auth/Login/Login";
 import Profile from "./screens/auth/Profile";
 import Signup from "./screens/auth/Signup/Signup";
 import HomePage from "./screens/HomePage";
+import ResetPasswordJobHunter from "./screens/jobHunter/ResetPasswordJobHunter";
+import ResetPasswordRecruiter from "./screens/recruiter/ResetPasswordRecruiter";
 import ShowJobHunters from "./screens/ShowJobHunters";
 import ShowProjects from "./screens/ShowProjects";
 
@@ -18,6 +21,19 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/search/project' element={<ShowProjects />} />
         <Route path='/search/users' element={<ShowJobHunters />} />
+        <Route path='/forgotPassword' element={<ForgotPassword />} />
+
+        {/* Job Hunter routes */}
+        <Route
+          path='/jobHunter/resetPassword/:token'
+          element={<ResetPasswordJobHunter />}
+        />
+
+        {/* Recruiter routes */}
+        <Route
+          path='/recruiter/resetPassword/:token'
+          element={<ResetPasswordRecruiter />}
+        />
 
         {/* Projected Routes */}
         <Route element={<ProtectedRoute />}>

@@ -11,6 +11,7 @@ import {
 import { BellIcon } from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../store/auth/authSlice";
+import { Link } from "react-router-dom";
 
 const AuthenticatedNavbar = ({ user }) => {
   const dispatch = useDispatch();
@@ -29,7 +30,9 @@ const AuthenticatedNavbar = ({ user }) => {
           <Avatar size='md' cursor='pointer' name={user.name} />
         </MenuButton>
         <MenuList>
-          <MenuItem>Profile</MenuItem>
+          <Link to='/profile'>
+            <MenuItem>Profile</MenuItem>
+          </Link>
           <MenuItem>My Collections</MenuItem>
           <MenuDivider />
           <MenuItem onClick={logoutHandler}>Logout</MenuItem>

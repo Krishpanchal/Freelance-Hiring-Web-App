@@ -26,7 +26,7 @@ const LoginForm = ({ role }) => {
     }
 
     if (isSuccess || user) {
-      navigate("/");
+      navigate("/search/project");
     }
 
     dispatch(reset());
@@ -63,7 +63,7 @@ const LoginForm = ({ role }) => {
         onChange={onChange}
         required
       />
-      <Link to='/' className='link forgot'>
+      <Link to='/forgotPassword' className='link forgot'>
         Forgot password?
       </Link>
       <Button

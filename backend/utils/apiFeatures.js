@@ -35,7 +35,6 @@ class APIFeatures {
 
   search() {
     const objKeys = Object.keys(this.body);
-    console.log(this.body);
 
     for (let i = 0; i < objKeys.length; i++) {
       const searchObj = {};

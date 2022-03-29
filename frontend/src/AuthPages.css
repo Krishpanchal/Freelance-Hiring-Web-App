@@ -9,7 +9,7 @@
 .hero {
   max-width: 130rem;
   margin: 0 auto;
-  /* padding: 0 3.2rem; */
+  padding: 0 3.2rem;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -102,4 +102,12 @@
   font-weight: 600;
   color: #0d6ddf;
   margin-left: 7px;
+}
+
+.reset_password {
+  font-size: 1.8rem;
+  font-weight: 500;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
 }

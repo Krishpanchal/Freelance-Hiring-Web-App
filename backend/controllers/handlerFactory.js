@@ -53,7 +53,7 @@ exports.logout = catchAsync((req, res, next) => {
   res.status(200).json({ status: "success" });
 });
 
-exports.forgotPassword = (Model) =>
+exports.forgotPassword = (Model, type) =>
   catchAsync(async (req, res, next) => {
     //Get the posted email
     if (!req.body.email) {
@@ -63,7 +63,7 @@ exports.forgotPassword = (Model) =>
     const user = await Model.findOne({ email: req.body.email });
 
     if (!user) {
-      return next(new AppError("The user with the email does not exist", 404));
+      return next(new AppError("The user with email does not exist", 404));
     }
 
     //Generate the random reset token
@@ -73,16 +73,21 @@ exports.forgotPassword = (Model) =>
     await user.save({ validateBeforeSave: false });
 
     // Send it to the user's email
+
     try {
-      const resetURL = `${req.protocol}://${req.get(
-        "host"
-      )}/api/v1/users/resetPassword/${resetToken}`;
+      let resetURL;
+      if (process.env.NODE_ENV === "DEVELOPMENT") {
+        resetURL = `http://localhost:3000/${type}/resetPassword/${resetToken}`;
+      } else {
+        //TODO: add the hosted url
+        resetURL = `http://localhost:3000/${type}/resetPassword/${resetToken}`;
+      }
 
       await new Email(user, resetURL).sendResetPassword();
 
       res.status(200).json({
-        satus: "success",
-        message: "Token sent to email!",
+        status: "success",
+        message: "Link sent to email!",
       });
     } catch (err) {
       user.passwordResetToken = undefined;
@@ -127,6 +132,7 @@ exports.resetPassword = (Model) =>
 
     res.status(200).json({
       status: "success",
+      message: "Password changed successfully",
     });
   });
 

@@ -1,7 +1,14 @@
-import React from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-  return <h1 style={{ padding: "5rem" }}>HomePage</h1>;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/search/project");
+  }, [navigate]);
+
+  return <p>Hello</p>;
 };
 
 export default HomePage;
