@@ -6,7 +6,6 @@ import { fetchJobHunters } from "../../store/jobHunters/jobHunterSlice";
 import availabilities from "../../utils/AvalArray";
 import locations from "../../utils/LocationArray";
 import techarray from "../../utils/TechnologyArray";
-import isEmpty from "../../utils/utils";
 import classes from "./Users.module.css";
 
 const FilterSection = () => {

@@ -29,12 +29,20 @@ const JobHunterSignupForm = () => {
       alert.error(message);
     }
 
-    if (isSuccess || user) {
-      navigate("/");
+    if (isSuccess) {
+      return navigate("/profile", {
+        state: {
+          previousRoute: "signup",
+        },
+      });
+    }
+
+    if (user) {
+      navigate("/search/project");
     }
 
     dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch, alert]);
+  }, [user, isError, isSuccess, navigate, message, dispatch, alert]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({

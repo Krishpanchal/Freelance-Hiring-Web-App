@@ -21,7 +21,7 @@ const Header = () => {
       <div className='nav-right'>
         {user ? (
           <ChakraProvider>
-            <AuthenticatedNavbar user={user} />
+            <AuthenticatedNavbar currentUser={user} />
           </ChakraProvider>
         ) : (
           <NotAuthenticatedNavbar />

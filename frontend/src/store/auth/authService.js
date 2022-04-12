@@ -16,6 +16,7 @@ const signup = async (userData) => {
   return data.data;
 };
 
+// Login user
 const login = async (userData) => {
   let role;
   if (userData.role === "job hunter") role = "users";
@@ -31,6 +32,26 @@ const login = async (userData) => {
   return data.data;
 };
 
+const updateUser = async (userData) => {
+  let role = JSON.parse(localStorage.getItem("user")).role;
+  if (role === "job hunter") role = "users";
+  if (role === "recruiter") role = "recruiters";
+
+  const { data } = await axios.patch(`${API_URL}${role}/updateMe`, userData);
+
+  const user = data.data.user;
+
+  const currentUser = {
+    ...JSON.parse(localStorage.getItem("user")),
+    name: user.name,
+    email: user.email,
+    photo: user.photo,
+  };
+  localStorage.setItem("user", JSON.stringify(currentUser));
+
+  return data.data.user;
+};
+
 const logout = () => {
   localStorage.removeItem("user");
 };
@@ -39,6 +60,7 @@ const authService = {
   signup,
   login,
   logout,
+  updateUser,
 };
 
 export default authService;

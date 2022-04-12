@@ -1,10 +1,10 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/layout/Layout";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 import ForgotPassword from "./screens/auth/ForgotPassword";
 import Login from "./screens/auth/Login/Login";
-import Profile from "./screens/auth/Profile";
+import Profile from "./screens/auth/Profile/Profile";
 import Signup from "./screens/auth/Signup/Signup";
 import HomePage from "./screens/HomePage";
 import ResetPasswordJobHunter from "./screens/jobHunter/ResetPasswordJobHunter";
@@ -35,7 +35,7 @@ function App() {
           element={<ResetPasswordRecruiter />}
         />
 
-        {/* Projected Routes */}
+        {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path='/profile' element={<Profile />} />
         </Route>

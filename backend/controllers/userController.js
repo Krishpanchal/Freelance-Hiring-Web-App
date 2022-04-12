@@ -30,20 +30,20 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   }
 
   const newUserData = req.body;
-
   // User Profile Photo
-  if (req?.files?.photo) {
+  if (req?.body?.photo) {
     // Update new photo
-    const file = req.files.photo;
-
+    const file = req.body.photo;
     // TODO: Check if the user has not changes his photo. If yes not perform these steps
     // delete previous image from cloudinary
+
+    // TODO: Change this code for update images
     if (req.user.photo.public_id) {
       cloudinary.v2.uploader.destroy(req.user.photo.public_id);
     }
 
     // add new image
-    const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
+    const result = await cloudinary.v2.uploader.upload(file, {
       folder: process.env.CLOUDINARY_USER_PHOTO,
       width: 150,
       crop: "scale",

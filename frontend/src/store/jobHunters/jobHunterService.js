@@ -1,5 +1,4 @@
 import axios from "axios";
-import isEmpty from "../../utils/utils";
 
 const API_URL = "/api/v1/";
 

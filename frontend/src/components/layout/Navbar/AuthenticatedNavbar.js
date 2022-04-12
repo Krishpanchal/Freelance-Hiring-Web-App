@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Menu,
   MenuButton,
@@ -12,13 +12,18 @@ import { BellIcon } from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../store/auth/authSlice";
 import { Link } from "react-router-dom";
+import DefaultImage from "../../../assets/default.jpg";
 
-const AuthenticatedNavbar = ({ user }) => {
+const AuthenticatedNavbar = ({ currentUser }) => {
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-    dispatch(logout(user));
+    dispatch(logout(currentUser));
   };
+
+  const userImage = currentUser.photo?.url
+    ? currentUser.photo?.url
+    : DefaultImage;
 
   return (
     <>
@@ -27,7 +32,12 @@ const AuthenticatedNavbar = ({ user }) => {
       </Button>
       <Menu>
         <MenuButton>
-          <Avatar size='md' cursor='pointer' name={user.name} />
+          <Avatar
+            size='md'
+            cursor='pointer'
+            name={currentUser.name}
+            src={userImage}
+          />
         </MenuButton>
         <MenuList>
           <Link to='/profile'>

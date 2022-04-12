@@ -29,6 +29,7 @@ module.exports = (user, statusCode, req, res) => {
       status: "success",
 
       data: {
+        id: user.id,
         name: user.name,
         email: user.email,
         photo: user.photo.url ? user.photo : null,
@@ -40,6 +41,7 @@ module.exports = (user, statusCode, req, res) => {
     res.status(statusCode).json({
       status: "success",
       data: {
+        id: user.id,
         name: user.name,
         email: user.email,
         photo: user.photo.url ? user.photo : null,
