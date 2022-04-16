@@ -190,7 +190,7 @@ const AddProjectModal = ({ addProjects, projects, children }) => {
                   </div>
 
                   <div className={classes["form-group"]}>
-                    <label htmlFor='name'>Add tags ( Max 6 )</label>
+                    <label htmlFor='name'>Add Technologies Used</label>
                     <Select
                       isMulti
                       name='aval'

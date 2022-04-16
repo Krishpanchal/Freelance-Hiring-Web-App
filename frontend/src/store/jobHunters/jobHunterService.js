@@ -11,8 +11,15 @@ const fetchJobHunters = async (tags) => {
   return data.data;
 };
 
+const fetchJobHunter = async (id) => {
+  const { data } = await axios.get(`${API_URL}users/${id}`);
+
+  return data.data.data;
+};
+
 const authService = {
   fetchJobHunters,
+  fetchJobHunter,
 };
 
 export default authService;

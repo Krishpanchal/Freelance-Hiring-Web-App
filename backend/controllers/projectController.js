@@ -43,6 +43,31 @@ exports.addProject = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.addMultipleProjects = catchAsync(async (req, res, next) => {
+  if (!req.body.projects) return;
+
+  const projects = req.body.projects;
+
+  for (let i = 0; i < projects.length; i++) {
+    const projectImage = projects[i].photo;
+    const result = await cloudinary.v2.uploader.upload(projectImage, {
+      folder: process.env.CLOUDINARY_USER_PROJECTS,
+    });
+
+    projects[i].user = req.user.id;
+    projects[i].photo = {
+      public_id: result.public_id,
+      url: result.secure_url,
+    };
+  }
+
+  await Project.insertMany(projects);
+
+  res.status(201).json({
+    success: "true",
+  });
+});
+
 exports.updateProject = catchAsync(async (req, res, next) => {
   // 1. Check if the projects exits
   const project = await Project.findById(req.params.id);

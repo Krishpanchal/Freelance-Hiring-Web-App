@@ -1,4 +1,5 @@
 const express = require("express");
+const { route } = require("express/lib/application");
 const authController = require("../controllers/authController");
 const projectController = require("../controllers/projectController");
 const { protect } = require("../middlewares/auth");
@@ -10,6 +11,13 @@ router
   .route("/")
   .post(projectController.getAllProjects)
   .post(protect(User), projectController.addProject);
+
+router.post(
+  "/addMultiple",
+  protect(User),
+  projectController.addMultipleProjects
+);
+
 router
   .route("/:id")
   .get(projectController.getProject)

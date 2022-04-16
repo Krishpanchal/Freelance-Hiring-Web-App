@@ -1,6 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { Button } from "@mui/material";
-import React, { useState } from "react";
+import { Button, CircularProgress } from "@mui/material";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { buttonStyles } from "../../../layout/compnentStyles";
 import AddCertificateModal from "./AddCertificateModal";
 import AddProjectModal from "./AddProjectModal";
@@ -11,6 +12,20 @@ import ProjectsContainer from "./ProjectsContainer";
 const ProjectAndCertification = ({ changeStep }) => {
   const [projects, setProjects] = useState([]);
   const [certificates, setCertificates] = useState([]);
+  const [projectLoading, setProjectLoading] = useState(false);
+  const [certificateLoading, setCertificateLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState({
+    projects: false,
+    certificates: false,
+  });
+
+  useEffect(() => {
+    if (isSuccess.projects && isSuccess.certificates) {
+      console.log("done");
+      changeStep();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess.certificates, isSuccess.projects, setIsSuccess]);
 
   const addProjects = (projectData) => {
     setProjects((prevState) => [...projects, projectData]);
@@ -20,8 +35,47 @@ const ProjectAndCertification = ({ changeStep }) => {
     setCertificates((prevState) => [...certificates, certificate]);
   };
 
-  console.log("projects", projects);
-  console.log("certificates", certificates);
+  const requestAddProjects = async () => {
+    try {
+      setProjectLoading(true);
+      await axios.post(`/api/v1/projects/addMultiple`, {
+        projects,
+      });
+      setProjectLoading(false);
+      setIsSuccess((prev) => ({ ...prev, projects: true }));
+    } catch (err) {
+      setProjectLoading(false);
+      setIsSuccess((prev) => ({ ...prev, projects: false }));
+      console.log(err.response);
+    }
+  };
+
+  const requestAddCertifcates = async () => {
+    try {
+      setCertificateLoading(true);
+      await axios.patch(`/api/v1/users/updateMe`, {
+        certificates,
+      });
+      setCertificateLoading(false);
+      setIsSuccess((prev) => ({ ...prev, certificates: true }));
+    } catch (err) {
+      setCertificateLoading(false);
+      setIsSuccess((prev) => ({ ...prev, certificates: false }));
+      console.log(err.response.data);
+    }
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    // TODO: IF projects and certificates are empty then move to next step
+    if (!projects && !certificates) {
+      changeStep();
+    }
+
+    await requestAddProjects();
+    await requestAddCertifcates();
+  };
 
   return (
     <div>
@@ -74,16 +128,15 @@ const ProjectAndCertification = ({ changeStep }) => {
         </Button>
 
         <Button
-          type='submit'
           sx={{ ...buttonStyles, padding: "0.5rem 1rem" }}
           variant='contained'
-          // disabled={isLoading}
-        >
-          {/* {isLoading ? ( */}
-          {/* <CircularProgress size='2.4rem' color='grey' /> */}
-          {/* ) : ( */}
-          Next
-          {/* )} */}
+          onClick={submitHandler}
+          disabled={projectLoading || certificateLoading}>
+          {projectLoading || certificateLoading ? (
+            <CircularProgress size='2.4rem' color='grey' />
+          ) : (
+            "Next"
+          )}
         </Button>
       </div>
     </div>

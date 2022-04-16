@@ -3,7 +3,7 @@ import { Step, StepLabel, Stepper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import AddDetailsForm from "./AddDetailsForm";
-import AdditionalInfo from "./AdditionalInfo";
+import AdditionalInfo from "./AdditionalInfo/AdditionalInfo";
 import classes from "./JobHunterUpdate.module.css";
 import ProjectAndCertification from "./ProjectAndCertification";
 

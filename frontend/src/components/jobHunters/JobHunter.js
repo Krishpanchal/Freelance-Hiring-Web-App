@@ -1,21 +1,28 @@
 import React from "react";
 import classes from "./Users.module.css";
 import DefaultPhoto from "../../assets/default.jpg";
+import { Link, useNavigate } from "react-router-dom";
 
 const JobHunter = ({ user }) => {
+  const navigate = useNavigate();
+
   return (
     <div className={classes["container"]}>
       <div className={classes["image-container"]}>
-        <img
-          className={classes["image-container--avatar"]}
-          src={user?.photo?.url ? user.photo.url : DefaultPhoto}
-          alt={user.name}
-        />
+        <Link to={`/jobHunter/${user._id}`}>
+          <img
+            className={classes["image-container--avatar"]}
+            src={user?.photo?.url ? user.photo.url : DefaultPhoto}
+            alt={user.name}
+          />
+        </Link>
       </div>
       <div className={classes["info-container"]}>
         <div className={classes["info-container--one"]}>
           <ul className={classes["user-details"]}>
-            <li className={classes["user-name"]}>{user.name}</li>
+            <Link to={`/jobHunter/${user._id}`}>
+              <li className={classes["user-name"]}>{user.name}</li>
+            </Link>
             <li className={classes["user-location"]}>{user?.city}</li>
             <li className={classes["user-type"]}>{user?.type}</li>
           </ul>
@@ -36,7 +43,13 @@ const JobHunter = ({ user }) => {
               </li>
             ))}
           </ul>
-          <button className={classes["user-profile"]}>View Profile</button>
+          <button
+            className={classes["user-profile"]}
+            onClick={() => {
+              navigate(`/jobHunter/${user._id}`);
+            }}>
+            View Profile
+          </button>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
+  singleProject: {},
   message: "",
 };
 
@@ -15,6 +16,20 @@ export const fetchProjects = createAsyncThunk(
   async (filterData, thunkAPI) => {
     try {
       return await projectService.fetchProjects(filterData);
+    } catch (error) {
+      const message =
+        error.response?.data?.message || error.message || error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Fetch Project
+export const fetchProject = createAsyncThunk(
+  "singleProject/fetch",
+  async (projectId, thunkAPI) => {
+    try {
+      return await projectService.fetchProject(projectId);
     } catch (error) {
       const message =
         error.response?.data?.message || error.message || error.toString();
@@ -33,6 +48,7 @@ export const projectSlice = createSlice({
       state.isError = false;
       state.message = "";
       state.projects = [];
+      state.singleProject = {};
     },
   },
   extraReducers: (builder) => {
@@ -50,6 +66,22 @@ export const projectSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.projects = [];
+      })
+
+      //Fetch Single Project
+      .addCase(fetchProject.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchProject.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.singleProject = action.payload;
+      })
+      .addCase(fetchProject.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.singleProject = [];
       });
   },
 });

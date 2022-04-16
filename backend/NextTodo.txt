@@ -40,10 +40,13 @@ Things left
   Logout Button redirect to /signup and call the logout api too
 
 
- Project and Certification upload at first time
- - Create a route for adding multiple projects
- - Create a route for adding multiple certificates
- - Now from frontend , when you will click on next, the onClick handler will call the apis 
-      - One for adding multiple projects
-      - One for adding multiple certificates
-      - And then use to loading conditions and if only both are true then only go ahead
+
+
+Add Experience
+ - Add dates
+ - Add Delete and Update button in add projects
+
+ Final Things Left
+ - Recruiter Profile Setup
+ - Notifications
+ - Existing Profile Update for Recruiter and JobHunter

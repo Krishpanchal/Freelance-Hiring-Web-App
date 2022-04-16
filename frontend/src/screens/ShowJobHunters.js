@@ -9,7 +9,7 @@ const ShowJobHunters = () => {
   const { isError, message } = useSelector((state) => state.jobHunters);
 
   useEffect(() => {
-    dispatch(fetchJobHunters({ page: "1", perPage: "12" }));
+    dispatch(fetchJobHunters({ page: "1", perPage: "100" }));
     return () => {
       dispatch(reset());
     };

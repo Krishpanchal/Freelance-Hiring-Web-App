@@ -76,7 +76,7 @@
 
 .info-container {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 2fr;
   padding: 1.6rem 1.5rem;
   padding-left: 0;
 }
@@ -179,4 +179,5 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  align-self: flex-end;
 }

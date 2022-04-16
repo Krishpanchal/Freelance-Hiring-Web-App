@@ -1,11 +1,28 @@
 const cloudinary = require("cloudinary");
+const Project = require("../models/projectModel");
 const User = require("../models/userModel");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const handlerFactory = require("./handlerFactory");
 
 exports.getAllUsers = handlerFactory.getAll(User);
-exports.getUser = handlerFactory.getOne(User, false, { path: "projects" });
+exports.getUser = catchAsync(async (req, res, next) => {
+  const doc = await User.findById(req.params.id);
+  // Get Projects
+  const projects = await Project.find({ user: req.params.id });
+  if (!doc) {
+    return next(new AppError("No document found with that ID", 404));
+  }
+
+  doc.projects = projects;
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      data: doc,
+    },
+  });
+});
 exports.getMe = handlerFactory.getMe(User, { path: "projects" });
 
 exports.getMyCollections = handlerFactory.getMyCollections(User);
@@ -57,6 +74,23 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   // User Certifications
   // TODO: Multiple images updates
+  if (req?.body?.certificates) {
+    // console.log(req.body.certificates);
+    const certifications = req.body.certificates;
+
+    for (let i = 0; i < certifications.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(certifications[i], {
+        folder: process.env.CLOUDINARY_USER_CERTIFICATES,
+      });
+
+      certifications[i] = {
+        public_id: result.public_id,
+        url: result.secure_url,
+      };
+    }
+
+    newUserData.certifications = certifications;
+  }
 
   const updatedUser = await User.findByIdAndUpdate(req.user.id, newUserData, {
     new: true,

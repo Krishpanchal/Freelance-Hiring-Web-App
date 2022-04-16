@@ -68,7 +68,7 @@ body {
   padding: 1rem 2rem;
   background: linear-gradient(140deg, #0d6ddf, #001ec1 80%);
   color: #fff;
-  border-radius: 8px;
+  border-radius: 1px;
   cursor: pointer;
   outline: none;
   border: none;

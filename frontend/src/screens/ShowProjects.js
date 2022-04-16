@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SectionProjects from "../components/project/SectionProjects";
 import SectionSearch from "../components/project/SectionSearch";
@@ -9,7 +9,7 @@ const ShowProjects = () => {
   const { isError, message } = useSelector((state) => state.projects);
 
   useEffect(() => {
-    dispatch(fetchProjects({ page: "1", perPage: "12", keyword: "" }));
+    dispatch(fetchProjects({ page: "1", perPage: "100", keyword: "" }));
     return () => {
       dispatch(reset());
     };
