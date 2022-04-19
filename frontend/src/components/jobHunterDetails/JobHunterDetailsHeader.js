@@ -7,7 +7,7 @@ const JobHunterDetailsHeader = ({ user }) => {
     <>
       <div className={classes["user-header"]}>
         <div className={classes["user-image-container"]}>
-          <img src={user?.photo?.url || DefaultImage} alt={user?.nmae} />
+          <img src={user?.photo?.url || DefaultImage} alt={user?.name} />
         </div>
         <div className={classes["user-personal-details"]}>
           <div className={classes["user-contact"]}>

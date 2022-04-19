@@ -21,9 +21,8 @@ const AdditionalInfo = () => {
   const [workExp, setWorkExp] = useState([]);
   const [linkedIn, setLinkedIn] = useState("");
   const [githubLink, setGithubLink] = useState([]);
-  const { user, isError, isUpdateSuccess, message, isLoading } = useSelector(
-    (state) => state.auth
-  );
+  const { user, isError, isUpdateSuccess, message, isUpdateLoading } =
+    useSelector((state) => state.auth);
   const alert = useAlert();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -135,8 +134,8 @@ const AdditionalInfo = () => {
           sx={{ ...buttonStyles, padding: "0.5rem 2rem" }}
           variant='contained'
           onClick={submitHandler}
-          disabled={isLoading}>
-          {isLoading ? (
+          disabled={isUpdateLoading}>
+          {isUpdateLoading ? (
             <CircularProgress size='2.4rem' color='grey' />
           ) : (
             "Submit"

@@ -32,19 +32,23 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   const newUserData = req.body;
 
+  console.log(req.body);
+
   // User Profile Photo
-  if (req?.files?.photo) {
+  if (req?.body?.photo !== "") {
     // Update new photo
-    const file = req.files.photo;
+    const file = req.body.photo;
+
+    console.log("hello");
 
     // TODO: Check if the user has not changes his photo. If yes not perform these steps
     // delete previous image from cloudinary
-    if (req.user.photo.public_id) {
+    if (req.user?.photo?.public_id) {
       cloudinary.v2.uploader.destroy(req.user.photo.public_id);
     }
 
     // add new image
-    const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
+    const result = await cloudinary.v2.uploader.upload(file, {
       folder: process.env.CLOUDINARY_COMPANY_LOGO,
       width: 150,
       crop: "scale",
@@ -55,6 +59,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       url: result.secure_url,
     };
   }
+
+  if (req.body.photo === "") delete newUserData.photo;
 
   const updatedUser = await Recruiter.findByIdAndUpdate(
     req.user.id,

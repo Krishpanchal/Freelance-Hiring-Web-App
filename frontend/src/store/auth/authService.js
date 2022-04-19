@@ -41,6 +41,8 @@ const updateUser = async (userData) => {
 
   const user = data.data.user;
 
+  console.log("data", user);
+
   const currentUser = {
     ...JSON.parse(localStorage.getItem("user")),
     name: user.name,
@@ -52,6 +54,17 @@ const updateUser = async (userData) => {
   return data.data.user;
 };
 
+// Fetch User Profile
+const fetchUser = async () => {
+  let role = JSON.parse(localStorage.getItem("user")).role;
+  if (role === "job hunter") role = "users";
+  if (role === "recruiter") role = "recruiters";
+
+  const { data } = await axios.get(`${API_URL}${role}/me`);
+
+  return data.data.data;
+};
+
 const logout = () => {
   localStorage.removeItem("user");
 };
@@ -61,6 +74,7 @@ const authService = {
   login,
   logout,
   updateUser,
+  fetchUser,
 };
 
 export default authService;

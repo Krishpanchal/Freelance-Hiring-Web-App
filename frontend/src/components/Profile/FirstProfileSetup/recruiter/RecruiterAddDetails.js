@@ -1,45 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
-import classes from "./JobHunterUpdate.module.css";
-import Select from "react-select";
-import LocationArray from "../../../../utils/LocationArray";
+import classes from "../jobHunter/JobHunterUpdate.module.css";
 import { reset, updateUser } from "../../../../store/auth/authSlice";
 import { buttonStyles } from "../../../layout/compnentStyles";
 import { Button, CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const selectStyles = {
-  control: (base) => ({
-    ...base,
-    background: "#f1f3f5",
-    fontSize: "1.2rem",
-    padding: " 0 1rem",
-  }),
-};
-
-const AddDetailsForm = ({ changeStep }) => {
+const AddDetailsForm = () => {
   const { user, isError, isUpdateSuccess, message, isUpdateLoading } =
     useSelector((state) => state.auth);
   const alert = useAlert();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     photo: "",
     name: user.name || "",
     email: user.email || "",
-    title: "",
-    protfolioLink: "",
-    city: "",
-    bio: "",
+    website: "",
+    description: "",
   });
   const [photoPreview, setPhotoPreview] = useState("");
 
-  const { photo, name, email, title, protfolioLink, city, bio } = formData;
+  const { photo, name, email, website, description } = formData;
 
   useEffect(() => {
     if (isError) alert.error(message);
 
-    if (isUpdateSuccess) changeStep();
+    if (isUpdateSuccess) navigate("/search/project");
 
     dispatch(reset());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,22 +69,21 @@ const AddDetailsForm = ({ changeStep }) => {
     e.preventDefault();
     if (!photo) return alert.error("Please select a photo");
 
+    console.log(formData);
     // Create formData
     const updateData = new FormData();
     updateData.set("name", name);
     updateData.set("email", email);
     updateData.set("photo", photo);
-    updateData.set("title", title);
-    updateData.set("protfolioLink", protfolioLink);
-    updateData.set("city", city);
-    updateData.set("bio", bio);
+    updateData.set("website", website);
+    updateData.set("description", description);
 
-    //Call api
+    // //Call api
     dispatch(updateUser(formData));
   };
 
   return (
-    <div className={classes["profile-update-form"]}>
+    <div className={classes["profile-update-form"]} style={{ padding: "2rem" }}>
       <label htmlFor='photo' style={{ width: "180px", height: "180px" }}>
         <input
           name='photo'
@@ -110,77 +98,55 @@ const AddDetailsForm = ({ changeStep }) => {
           {photoPreview ? (
             <img src={photoPreview} alt='avatar' />
           ) : (
-            <p>Add Photo +</p>
+            <p>Add Company Logo +</p>
           )}
         </div>
       </label>
       <div className={classes["profile-update-fields"]}>
         <form onSubmit={submitHandler}>
           <div className={classes["form-group"]}>
-            <label htmlFor='name'>Full Name</label>
+            <label htmlFor='name'>Company Name *</label>
             <input
               id='name'
               name='name'
               value={name}
               type='text'
-              placeholder='Ex. John Doe'
+              placeholder='Ex. Amazon,Google'
               onChange={onChange}
               required
             />
           </div>
           <div className={classes["form-group"]}>
-            <label htmlFor='title'>Expertize</label>
-            <input
-              id='title'
-              name='title'
-              value={title}
-              type='text'
-              placeholder='Ex. Full Stack Developer'
-              onChange={onChange}
-              required
-            />
-          </div>
-          <div className={classes["form-group"]}>
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='email'>Company Email *</label>
             <input
               id='email'
               name='email'
               value={email}
               type='text'
-              placeholder='Ex. johndoe@gmail.com'
+              placeholder='Ex. johndoe@company.com'
               onChange={onChange}
               required
             />
           </div>
           <div className={classes["form-group"]}>
-            <label htmlFor='protfolioLink'>Protfolio Link</label>
+            <label htmlFor='website'>Company URL *</label>
             <input
-              id='protfolioLink'
-              name='protfolioLink'
-              value={protfolioLink}
+              id='website'
+              name='website'
+              value={website}
               type='text'
-              placeholder='Ex. https://github.com/username'
+              placeholder='Ex. https://company.com'
               onChange={onChange}
               required
             />
           </div>
+
           <div className={classes["form-group"]}>
-            <label htmlFor='city'>City</label>
-            <Select
-              options={LocationArray}
-              name='city'
-              styles={selectStyles}
-              onChange={(e) =>
-                setFormData((prevState) => ({ ...prevState, city: e.value }))
-              }
-            />
-          </div>
-          <div className={classes["form-group"]}>
-            <label htmlFor='bio'>Write something about yourself</label>
+            <label htmlFor='bio'>About Company *</label>
             <textarea
-              id='bio'
-              name='bio'
-              value={bio}
+              id='description'
+              name='description'
+              value={description}
               rows='4'
               cols='50'
               style={{ resize: "vertical" }}

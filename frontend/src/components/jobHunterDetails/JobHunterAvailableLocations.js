@@ -16,7 +16,7 @@ const JobHunterAvailableLocations = ({ user }) => {
           <div className={classes["user-locations"]}>
             {user.preferredLocations.map((el, i) => {
               return (
-                <div className={classes["user-location"]} key={i}>
+                <div className={classes["projects-section-info"]} key={i}>
                   {el}
                 </div>
               );

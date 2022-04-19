@@ -369,3 +369,24 @@ a:visited {
   font-size: 1.2rem;
   text-transform: capitalize;
 }
+
+.btn-small,
+.btn-xs {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.btn-xs {
+  width: 30px;
+  height: 30px;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #000;
+}
+
+.btn-primary {
+  background-color: #e6ebf6;
+}

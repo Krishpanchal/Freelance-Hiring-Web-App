@@ -11,7 +11,6 @@ const JobHunterAvailablilty = ({ user }) => {
       </div>
 
       <div className={classes["user-prefered-locations"]}>
-        <h1>Availability</h1>
         {user?.availability?.length > 0 ? (
           <div className={classes["user-locations"]}>
             {user.availability.map((el, i) => {
@@ -23,7 +22,9 @@ const JobHunterAvailablilty = ({ user }) => {
             })}
           </div>
         ) : (
-          <p>I am open for all kind of positions.</p>
+          <p className={classes["projects-section-info"]}>
+            I am open for all kind of positions.
+          </p>
         )}
       </div>
     </>
