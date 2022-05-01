@@ -390,3 +390,8 @@ a:visited {
 .btn-primary {
   background-color: #e6ebf6;
 }
+
+.btn-danger {
+  background-color: #ffd9d9;
+  color: #e94131;
+}

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -9,49 +10,43 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import classes from "../../../FirstProfileSetup/jobHunter/JobHunterUpdate.module.css";
+import Select from "react-select";
 import { useAlert } from "react-alert";
+import techarray from "../../../../../utils/TechnologyArray";
 import { useDispatch, useSelector } from "react-redux";
-import { reset, updateUser } from "../../../../store/auth/authSlice";
+import {
+  reset,
+  updateProject,
+} from "../../../../../store/JobHunterProjects/projectSlice";
 
-import classes from "../../FirstProfileSetup/jobHunter/JobHunterUpdate.module.css";
+const selectStyles = {
+  control: (base) => ({
+    ...base,
+    background: "#f1f3f5",
+    fontSize: "1.2rem",
+    padding: " 0 0",
+  }),
+};
 
-const EditRecruiterProfile = ({ user, children }) => {
+const EditProjectModal = ({ project, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isUpdateLoading, isUpdateSuccess } = useSelector(
-    (state) => state.auth
-  );
-
   const alert = useAlert();
   const dispatch = useDispatch();
+  const { isUpdateLoading, isUpdateSuccess } = useSelector(
+    (state) => state.jobHunterProjects
+  );
 
   const [formData, setFormData] = useState({
     photo: "",
-    name: user.name || "",
-    email: user.email || "",
-    website: user.website || "",
-    description: user.description || "",
+    title: project?.title || "",
+    description: project?.description || "",
+    projectLink: project?.projectLink || "",
+    gitHubLink: project?.gitHubLink || "",
   });
-  const [photoPreview, setPhotoPreview] = useState(user?.photo?.url || "");
-
-  const { photo, name, email, website, description } = formData;
-
-  useEffect(() => {
-    if (isUpdateSuccess) {
-      alert.success("Profile Update Successfully");
-    }
-
-    if (isUpdateSuccess) {
-      onClose();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUpdateLoading, isUpdateSuccess]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(reset());
-    };
-  }, [isUpdateSuccess, dispatch]);
+  const [tags, setTags] = useState([]);
+  const [photoPreview, setPhotoPreview] = useState(project?.photo?.url || "");
+  const { photo, title, description, projectLink, gitHubLink } = formData;
 
   const handleImage = (e) => {
     if (e.target.files[0] && !e.target.files[0].type.startsWith("image")) {
@@ -84,25 +79,48 @@ const EditRecruiterProfile = ({ user, children }) => {
     }
   };
 
+  useEffect(() => {
+    if (isUpdateSuccess) {
+      onClose();
+    }
+    return () => {
+      dispatch(reset());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUpdateSuccess]);
+
+  const previousSkills = [];
+  project?.tags?.forEach((skill, i) => {
+    previousSkills[i] = {
+      label: skill.replace(skill[0], skill[0].toUpperCase()),
+      value: skill,
+    };
+  });
+
   const submitHandler = (e) => {
     e.preventDefault();
-    if (!photoPreview) return alert.error("Please select a photo");
 
-    // Create formData
-    const updateData = new FormData();
-    updateData.set("name", name);
-    updateData.set("email", email);
-    updateData.set("photo", photo);
-    updateData.set("website", website);
-    updateData.set("description", description);
+    if (!photoPreview) return alert.error("Photo is required");
 
-    // //Call api
-    dispatch(updateUser(formData));
+    const selectedTags = tags?.map((tech) => tech.value);
+
+    const projectData = {
+      ...formData,
+      photo,
+      tags: selectedTags,
+      id: project._id,
+    };
+
+    dispatch(updateProject(projectData));
+  };
+
+  const openModal = () => {
+    onOpen();
   };
 
   return (
     <>
-      {children ? <span onClick={onOpen}>{children}</span> : <></>}
+      {children ? <span onClick={openModal}>{children}</span> : <></>}
 
       <Modal
         isOpen={isOpen}
@@ -110,9 +128,9 @@ const EditRecruiterProfile = ({ user, children }) => {
         size='4xl'
         motionPreset='slideInBottom'>
         <ModalOverlay />
-        <ModalContent h='500px' w='700px'>
+        <ModalContent h='500px'>
           <ModalHeader>
-            <h1 className={classes["add-project-title"]}>Edit Profile</h1>
+            <h1 className={classes["add-project-title"]}>Add Project</h1>
           </ModalHeader>
           <hr style={{ backgroundColor: "#ccc" }} />
           <ModalCloseButton />
@@ -141,58 +159,71 @@ const EditRecruiterProfile = ({ user, children }) => {
                   </label>
                 </div>
 
-                <div
-                  className={classes["form-project-details"]}
-                  style={{ width: "80%" }}>
+                <div className={classes["form-project-details"]}>
                   <div className={classes["form-group"]}>
-                    <label htmlFor='name'>Company Name</label>
+                    <label htmlFor='name'>Project title</label>
                     <input
                       id='name'
-                      name='name'
-                      value={name}
+                      name='title'
+                      value={title}
                       type='text'
-                      placeholder='Ex. Amazon,Google'
+                      placeholder='Name of the project'
                       onChange={onChange}
                       required
                     />
                   </div>
 
                   <div className={classes["form-group"]}>
-                    <label htmlFor='email'>Company Email *</label>
+                    <label htmlFor='name'>Project Link</label>
                     <input
-                      id='email'
-                      name='email'
-                      value={email}
+                      id='name'
+                      name='projectLink'
+                      value={projectLink}
                       type='text'
-                      placeholder='Ex. johndoe@company.com'
+                      placeholder='Ex. https://projecturl.com'
                       onChange={onChange}
                       required
                     />
                   </div>
 
                   <div className={classes["form-group"]}>
-                    <label htmlFor='website'>Company URL *</label>
+                    <label htmlFor='name'>Source Code</label>
                     <input
-                      id='website'
-                      name='website'
-                      value={website}
+                      id='name'
+                      name='gitHubLink'
+                      value={gitHubLink}
                       type='text'
-                      placeholder='Ex. https://company.com'
+                      placeholder='Ex. https://github.com/username/repo'
                       onChange={onChange}
                       required
                     />
                   </div>
 
                   <div className={classes["form-group"]}>
-                    <label htmlFor='bio'>About Company *</label>
+                    <label htmlFor='name'>Add Technologies Used</label>
+                    <Select
+                      isMulti
+                      name='aval'
+                      onChange={setTags}
+                      defaultValue={previousSkills}
+                      styles={selectStyles}
+                      options={techarray}
+                      className='basic-multi-select'
+                      classNamePrefix='select'
+                    />
+                  </div>
+
+                  <div className={classes["form-group"]}>
+                    <label htmlFor='bio'>Project Description</label>
                     <textarea
-                      id='description'
+                      id='bio'
                       name='description'
                       value={description}
                       rows='4'
-                      cols='50'
+                      cols='5'
                       style={{ resize: "vertical" }}
-                      onChange={onChange}></textarea>
+                      onChange={onChange}
+                      required></textarea>
                   </div>
                   <ModalFooter>
                     <Button
@@ -213,4 +244,4 @@ const EditRecruiterProfile = ({ user, children }) => {
   );
 };
 
-export default EditRecruiterProfile;
+export default EditProjectModal;

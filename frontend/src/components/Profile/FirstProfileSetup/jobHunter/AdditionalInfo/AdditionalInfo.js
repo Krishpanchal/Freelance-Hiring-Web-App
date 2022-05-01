@@ -20,7 +20,7 @@ const AdditionalInfo = () => {
   const [skills, setSkills] = useState([]);
   const [workExp, setWorkExp] = useState([]);
   const [linkedIn, setLinkedIn] = useState("");
-  const [githubLink, setGithubLink] = useState([]);
+  const [githubLink, setGithubLink] = useState("");
   const { user, isError, isUpdateSuccess, message, isUpdateLoading } =
     useSelector((state) => state.auth);
   const alert = useAlert();

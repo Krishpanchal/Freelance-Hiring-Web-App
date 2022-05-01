@@ -10,6 +10,19 @@ exports.getProject = handlerFactory.getOne(Project, {
   select: "name photo title",
 });
 
+exports.getMyProjects = catchAsync(async (req, res, next) => {
+  const id = req.user._id;
+
+  const projects = await Project.find({ user: id });
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      data: projects,
+    },
+  });
+});
+
 exports.addProject = catchAsync(async (req, res, next) => {
   const file = req?.files?.photo;
 
@@ -75,25 +88,25 @@ exports.updateProject = catchAsync(async (req, res, next) => {
   if (!project) return next(new AppError("Project not found", 404));
 
   // Only the projects belonging to the user can be updated
-  if (req.user.id !== project.user) {
+  if (req.user.id !== project.user.toString()) {
     return next(new AppError("User not authorized", 404));
   }
 
   const newProjectData = req.body;
 
   // User Profile Photo
-  if (req?.files?.photo) {
+  if (req?.body?.photo !== "" && req?.body?.photo !== undefined) {
     // Update new photo
-    const file = req.files.photo;
+    const file = req.body.photo;
 
     // TODO: Check if the user has not changes his photo. If yes not perform these steps
     // delete previous image from cloudinary
-    if (project.photo.public_id) {
+    if (project?.photo?.public_id) {
       cloudinary.v2.uploader.destroy(project.photo.public_id);
     }
 
     // add new image
-    const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
+    const result = await cloudinary.v2.uploader.upload(file, {
       folder: process.env.CLOUDINARY_USER_PROJECTS,
       width: 150,
       crop: "scale",
@@ -104,6 +117,8 @@ exports.updateProject = catchAsync(async (req, res, next) => {
       url: result.secure_url,
     };
   }
+
+  if (req.body.photo === "") delete newProjectData.photo;
 
   // 3.Update the project
   const updatedProject = await Project.findByIdAndUpdate(

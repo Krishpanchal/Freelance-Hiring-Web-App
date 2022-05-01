@@ -48,14 +48,15 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   const newUserData = req.body;
   // User Profile Photo
-  if (req?.body?.photo) {
+  if (req?.body?.photo !== "" && req?.body?.photo !== undefined) {
+    console.log("Hello");
     // Update new photo
     const file = req.body.photo;
     // TODO: Check if the user has not changes his photo. If yes not perform these steps
     // delete previous image from cloudinary
 
     // TODO: Change this code for update images
-    if (req.user.photo.public_id) {
+    if (req.user?.photo?.public_id) {
       cloudinary.v2.uploader.destroy(req.user.photo.public_id);
     }
 
@@ -71,6 +72,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       url: result.secure_url,
     };
   }
+
+  if (req.body.photo === "") delete newUserData.photo;
 
   // User Certifications
   // TODO: Multiple images updates

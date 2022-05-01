@@ -2,6 +2,7 @@ const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
+const { decode } = require("punycode");
 
 exports.protect = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -23,7 +24,7 @@ exports.protect = (Model) =>
     }
 
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-
+    console.log(decoded.id);
     const currentUser = await Model.findById(decoded.id);
     if (!currentUser)
       return next(

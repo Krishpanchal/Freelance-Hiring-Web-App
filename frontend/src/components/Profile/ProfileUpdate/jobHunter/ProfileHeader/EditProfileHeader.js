@@ -10,48 +10,43 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import classes from "../../../FirstProfileSetup/jobHunter/JobHunterUpdate.module.css";
+import LocationArray from "../../../../../utils/LocationArray";
+import Select from "react-select";
+import { reset, updateUser } from "../../../../../store/auth/authSlice";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { reset, updateUser } from "../../../../store/auth/authSlice";
 
-import classes from "../../FirstProfileSetup/jobHunter/JobHunterUpdate.module.css";
-
-const EditRecruiterProfile = ({ user, children }) => {
+const selectStyles = {
+  control: (base) => ({
+    ...base,
+    background: "#f1f3f5",
+    fontSize: "1.2rem",
+    padding: " 0 1rem",
+  }),
+};
+const EditProfileHeader = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isUpdateLoading, isUpdateSuccess } = useSelector(
-    (state) => state.auth
-  );
-
-  const alert = useAlert();
-  const dispatch = useDispatch();
-
   const [formData, setFormData] = useState({
     photo: "",
     name: user.name || "",
     email: user.email || "",
-    website: user.website || "",
-    description: user.description || "",
+    title: user.title || "",
+    protfolioLink: user.protfolioLink || "",
+    bio: user.bio || "",
+    city: user.city || "",
   });
   const [photoPreview, setPhotoPreview] = useState(user?.photo?.url || "");
 
-  const { photo, name, email, website, description } = formData;
+  const { photo, name, email, title, protfolioLink, bio, city } = formData;
 
-  useEffect(() => {
-    if (isUpdateSuccess) {
-      alert.success("Profile Update Successfully");
-    }
+  const alert = useAlert();
+  const dispatch = useDispatch();
+  const { isUpdateLoading, isUpdateSuccess } = useSelector(
+    (state) => state.auth
+  );
 
-    if (isUpdateSuccess) {
-      onClose();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUpdateLoading, isUpdateSuccess]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(reset());
-    };
-  }, [isUpdateSuccess, dispatch]);
+  console.log(title);
 
   const handleImage = (e) => {
     if (e.target.files[0] && !e.target.files[0].type.startsWith("image")) {
@@ -84,6 +79,23 @@ const EditRecruiterProfile = ({ user, children }) => {
     }
   };
 
+  useEffect(() => {
+    if (isUpdateSuccess) {
+      alert.success("Profile Update Successfully");
+    }
+
+    if (isUpdateSuccess) {
+      onClose();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUpdateLoading, isUpdateSuccess]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(reset());
+    };
+  }, [isUpdateSuccess, dispatch]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (!photoPreview) return alert.error("Please select a photo");
@@ -93,8 +105,10 @@ const EditRecruiterProfile = ({ user, children }) => {
     updateData.set("name", name);
     updateData.set("email", email);
     updateData.set("photo", photo);
-    updateData.set("website", website);
-    updateData.set("description", description);
+    updateData.set("title", title);
+    updateData.set("protfolioLink", protfolioLink);
+    updateData.set("bio", bio);
+    updateData.set("city", city);
 
     // //Call api
     dispatch(updateUser(formData));
@@ -112,7 +126,7 @@ const EditRecruiterProfile = ({ user, children }) => {
         <ModalOverlay />
         <ModalContent h='500px' w='700px'>
           <ModalHeader>
-            <h1 className={classes["add-project-title"]}>Edit Profile</h1>
+            <h1 className={classes["add-project-title"]}>Edit Details</h1>
           </ModalHeader>
           <hr style={{ backgroundColor: "#ccc" }} />
           <ModalCloseButton />
@@ -145,7 +159,7 @@ const EditRecruiterProfile = ({ user, children }) => {
                   className={classes["form-project-details"]}
                   style={{ width: "80%" }}>
                   <div className={classes["form-group"]}>
-                    <label htmlFor='name'>Company Name</label>
+                    <label htmlFor='name'>Full Name</label>
                     <input
                       id='name'
                       name='name'
@@ -158,37 +172,67 @@ const EditRecruiterProfile = ({ user, children }) => {
                   </div>
 
                   <div className={classes["form-group"]}>
-                    <label htmlFor='email'>Company Email *</label>
+                    <label htmlFor='email'>Email *</label>
                     <input
                       id='email'
                       name='email'
                       value={email}
                       type='text'
-                      placeholder='Ex. johndoe@company.com'
+                      placeholder='Ex. johndoe@gmail.com'
                       onChange={onChange}
                       required
                     />
                   </div>
 
                   <div className={classes["form-group"]}>
-                    <label htmlFor='website'>Company URL *</label>
+                    <label htmlFor='title'>Expertize *</label>
                     <input
-                      id='website'
-                      name='website'
-                      value={website}
+                      id='title'
+                      name='title'
+                      value={title}
                       type='text'
-                      placeholder='Ex. https://company.com'
+                      placeholder='Ex. Full Stack Developer'
                       onChange={onChange}
                       required
                     />
                   </div>
 
                   <div className={classes["form-group"]}>
-                    <label htmlFor='bio'>About Company *</label>
+                    <label htmlFor='title'>Portfolio Link *</label>
+                    <input
+                      id='protfolioLink'
+                      name='protfolioLink'
+                      value={protfolioLink}
+                      type='text'
+                      placeholder='Ex. https://github.com/username'
+                      onChange={onChange}
+                      required
+                    />
+                  </div>
+
+                  <div className={classes["form-group"]}>
+                    <label htmlFor='city'>City</label>
+                    <Select
+                      options={LocationArray}
+                      name='city'
+                      styles={selectStyles}
+                      onChange={(e) =>
+                        setFormData((prevState) => ({
+                          ...prevState,
+                          city: e.value,
+                        }))
+                      }
+                    />
+                  </div>
+
+                  <div className={classes["form-group"]}>
+                    <label htmlFor='protbiofolioLink'>
+                      Write something about yourself *
+                    </label>
                     <textarea
-                      id='description'
-                      name='description'
-                      value={description}
+                      id='bio'
+                      name='bio'
+                      value={bio}
                       rows='4'
                       cols='50'
                       style={{ resize: "vertical" }}
@@ -213,4 +257,4 @@ const EditRecruiterProfile = ({ user, children }) => {
   );
 };
 
-export default EditRecruiterProfile;
+export default EditProfileHeader;

@@ -18,6 +18,8 @@ router.post(
   projectController.addMultipleProjects
 );
 
+router.get("/me", protect(User), projectController.getMyProjects);
+
 router
   .route("/:id")
   .get(projectController.getProject)

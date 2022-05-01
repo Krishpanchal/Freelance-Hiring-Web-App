@@ -51,3 +51,31 @@ process.on("SIGTERM", () => {
     console.log("Process terminated!");
   });
 });
+
+// Requiring socket.io which returns a function which needs to be called with the server parameter
+const io = require("socket.io")(server, {
+  pingTimeout: 60000,
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("connected to socket");
+
+  socket.on("setup", (userData) => {
+    socket.join(userData.id);
+    socket.emit("connected");
+  });
+
+  socket.on("join room", (user) => {
+    socket.join(user.id);
+  });
+
+  socket.on("send notification", (obj) => {
+    socket.in(obj.jobHunterId).emit("recieve", {
+      ...obj,
+      content: `A recruiter viewed your ${obj.action}`,
+    });
+  });
+});

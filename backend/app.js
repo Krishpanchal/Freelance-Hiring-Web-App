@@ -7,6 +7,7 @@ const globalErrorHandler = require("./controllers/errorController");
 const userRoutes = require("./routes/userRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
 const projectRoutes = require("./routes/projectRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/recruiters", recruiterRoutes);
 app.use("/api/v1/projects", projectRoutes);
+app.use("/api/v1/notifications", notificationRoutes);
 
 //Handling undefined routes
 app.all("*", (req, res, next) => {

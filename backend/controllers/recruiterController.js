@@ -32,14 +32,10 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   const newUserData = req.body;
 
-  console.log(req.body);
-
   // User Profile Photo
   if (req?.body?.photo !== "") {
     // Update new photo
     const file = req.body.photo;
-
-    console.log("hello");
 
     // TODO: Check if the user has not changes his photo. If yes not perform these steps
     // delete previous image from cloudinary

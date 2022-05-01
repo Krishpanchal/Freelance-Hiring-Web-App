@@ -8,11 +8,12 @@ import {
   MenuDivider,
   Button,
 } from "@chakra-ui/react";
-import { BellIcon } from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../store/auth/authSlice";
 import { Link } from "react-router-dom";
 import DefaultImage from "../../../assets/default.jpg";
+import NotficationPanel from "../../Notification/NotficationPanel";
+import { getNotifications } from "../../../store/notifications/notificatonSlice";
 
 const AuthenticatedNavbar = ({ currentUser }) => {
   const dispatch = useDispatch();
@@ -25,11 +26,20 @@ const AuthenticatedNavbar = ({ currentUser }) => {
     ? currentUser.photo?.url
     : DefaultImage;
 
+  useEffect(() => {
+    if (currentUser.role === "job hunter") {
+      dispatch(getNotifications());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  useEffect(() => {
+    Notification.requestPermission();
+  }, []);
+
   return (
     <>
-      <Button>
-        <BellIcon />
-      </Button>
+      <NotficationPanel />
       <Menu>
         <MenuButton>
           <Avatar
