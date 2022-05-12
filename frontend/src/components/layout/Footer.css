@@ -15,7 +15,7 @@
 .logo-footer {
   font-size: 3rem;
   font-weight: 500;
-  color: #fff;
+  color: #fff !important;
   letter-spacing: 0.5px;
 }
 

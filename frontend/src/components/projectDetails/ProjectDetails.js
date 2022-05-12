@@ -31,7 +31,6 @@ const ProjectDetails = () => {
             content: "A recruiter viewed your project",
           })
         );
-        console.log("hello");
         socket.emit("send notification", {
           action: "project",
           recruitId: user.id,

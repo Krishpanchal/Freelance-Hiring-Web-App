@@ -184,3 +184,8 @@
   font-weight: 600;
   margin-bottom: 1rem;
 }
+
+.buttonBlack {
+  background-color: black;
+  color: #fff;
+}

@@ -1,12 +1,13 @@
 import { BellIcon } from "@chakra-ui/icons";
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import {
   appendNotication,
   setNewNotificationsToFalse,
 } from "../../store/notifications/notificatonSlice";
+import TimeAgo from "timeago-react";
 
 const ENDPOINT = "http://localhost:5000";
 var socket;
@@ -40,7 +41,9 @@ const NotficationPanel = () => {
     socket.on("recieve", (obj) => {
       if (user.id === obj.jobHunterId) {
         console.log("notification", obj);
-        dispatch(appendNotication({ new: true, ...obj }));
+        dispatch(
+          appendNotication({ new: true, createdAt: Date.now(), ...obj })
+        );
 
         if (Notification.permission === "granted") {
           new Notification("New Message from FindProgrammer", {
@@ -75,7 +78,23 @@ const NotficationPanel = () => {
               borderBottom='1px solid #ccc'
               key={i}
               cursor='auto'>
-              {notif.content}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "2px",
+                }}>
+                {notif.content}
+
+                <p
+                  style={{
+                    fontSize: "1.2rem",
+                    color: "#868e96",
+                    alignSelf: "flex-end",
+                  }}>
+                  <TimeAgo datetime={notif?.createdAt} locale='en-Us' />
+                </p>
+              </div>
             </MenuItem>
           ))}
         </MenuList>

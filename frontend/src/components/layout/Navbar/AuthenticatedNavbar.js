@@ -53,7 +53,10 @@ const AuthenticatedNavbar = ({ currentUser }) => {
           <Link to='/profile'>
             <MenuItem>Profile</MenuItem>
           </Link>
-          <MenuItem>My Collections</MenuItem>
+          <Link to='/collections'>
+            <MenuItem>My Collections</MenuItem>
+          </Link>
+
           <MenuDivider />
           <MenuItem onClick={logoutHandler}>Logout</MenuItem>
         </MenuList>

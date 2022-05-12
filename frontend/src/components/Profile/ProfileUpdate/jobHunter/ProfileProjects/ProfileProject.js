@@ -1,6 +1,7 @@
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { deleteProject } from "../../../../../store/JobHunterProjects/projectSlice";
 import classes from "../../../../jobHunterDetails/jobHunterDetails.module.css";
 import EditProjectModal from "./EditProjectModal";
 
@@ -17,7 +18,7 @@ const ProfileProjects = () => {
   const navigate = useNavigate();
 
   const { myProjects } = useSelector((state) => state.jobHunterProjects);
-  console.log("myProjects", myProjects);
+  const dispatch = useDispatch();
 
   return (
     <div className={classes["user-projects-section"]}>
@@ -47,7 +48,7 @@ const ProfileProjects = () => {
                   </EditProjectModal>
                   <button
                     className={`${classes["btn-xs"]} ${classes["btn-danger"]}`}>
-                    <DeleteIcon />
+                    <DeleteIcon onClick={() => dispatch(deleteProject(el))} />
                   </button>
                 </div>
 

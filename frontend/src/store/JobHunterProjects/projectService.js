@@ -17,9 +17,18 @@ const updateMyProject = async (projectData) => {
   return data.data.project;
 };
 
+const deleteProject = async (projectData) => {
+  const id = projectData._id;
+
+  const { data } = await axios.delete(`${API_URL}projects/${id}`, projectData);
+
+  if (data) return id;
+};
+
 const authService = {
   fetchMyProjects,
   updateMyProject,
+  deleteProject,
 };
 
 export default authService;

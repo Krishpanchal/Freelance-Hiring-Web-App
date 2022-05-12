@@ -41,6 +41,20 @@ export const updateProject = createAsyncThunk(
   }
 );
 
+export const deleteProject = createAsyncThunk(
+  "myProjects/delete",
+  async (projectData, thunkAPI) => {
+    try {
+      return await projectService.deleteProject(projectData);
+    } catch (error) {
+      // TODO: Refactor this code
+      const message =
+        error.response?.data?.message || error.message || error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const projectSlice = createSlice({
   name: "myProjects",
   initialState,
@@ -71,6 +85,7 @@ export const projectSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
+
       // Update Project
       .addCase(updateProject.pending, (state) => {
         state.isUpdateLoading = true;
@@ -89,6 +104,26 @@ export const projectSlice = createSlice({
       })
       .addCase(updateProject.rejected, (state, action) => {
         state.isUpdateLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+
+      // Delete Project
+      .addCase(deleteProject.pending, (state) => {
+        state.isUpdateLoading = true;
+      })
+      .addCase(deleteProject.fulfilled, (state, action) => {
+        console.log("action", action.payload);
+        state.myProjects = state.myProjects.filter(
+          (el) => el._id !== action.payload
+        );
+        state.isDeleteLoading = false;
+        state.isDeleteSuccess = true;
+        // state.myProjects = action.payload;
+        // here you need filter and change data
+      })
+      .addCase(deleteProject.rejected, (state, action) => {
+        state.isDeleteLoading = false;
         state.isError = true;
         state.message = action.payload;
       });

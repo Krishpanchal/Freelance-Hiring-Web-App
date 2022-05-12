@@ -19,7 +19,6 @@ const JobHunterWorkExp = ({ user }) => {
                 style={{
                   width: "500px",
                   margin: "0 auto",
-                  border: "1px solid #ccc",
                 }}
                 key={index}>
                 <div className={classes["main-content"]}>

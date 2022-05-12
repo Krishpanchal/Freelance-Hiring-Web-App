@@ -1,6 +1,8 @@
 import React from "react";
 import classes from "./ProjectDetails.module.css";
 import DefaultPhoto from "../../assets/default.jpg";
+import { useSelector } from "react-redux";
+import SaveButton from "./SaveButton";
 
 const ProjectDetailsHeader = ({ project }) => {
   return (
@@ -18,11 +20,7 @@ const ProjectDetailsHeader = ({ project }) => {
         </div>
       </div>
 
-      <div className={classes["project-actions"]}>
-        <button className={classes["project-action-btn"]}>
-          <p>Save</p>
-        </button>
-      </div>
+      <SaveButton project={project} />
     </div>
   );
 };

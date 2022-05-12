@@ -13,7 +13,7 @@ const Header = () => {
     <header className='header'>
       <div className='nav-left'>
         <Link to='/' className='logo'>
-          Logo
+          FindProgrammer
         </Link>
         <Link to='/search/project'>Explore Work</Link>
         <Link to='/search/users'>Search Job Hunters</Link>

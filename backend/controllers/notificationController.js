@@ -16,7 +16,7 @@ exports.addNotification = catchAsync(async (req, res, next) => {
 exports.getMyNotifications = catchAsync(async (req, res, next) => {
   const user = req.user._id;
 
-  const doc = await Notification.find({ user });
+  const doc = await Notification.find({ user }).sort("-createdAt");
 
   res.status(201).json({
     status: "success",

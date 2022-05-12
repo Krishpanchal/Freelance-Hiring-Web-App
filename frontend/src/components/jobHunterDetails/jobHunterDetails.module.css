@@ -395,3 +395,8 @@ a:visited {
   background-color: #ffd9d9;
   color: #e94131;
 }
+
+.prefered_header {
+  font-size: 2rem;
+  font-weight: 600;
+}

@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className='footer'>
       <div className='footer-logo'>
         <Link to='/' className='link logo logo-footer'>
-          Logo
+          FindProgrammer
         </Link>
       </div>
       <div className='footer-description'>

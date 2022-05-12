@@ -11,12 +11,12 @@ const JobHunterAvailableLocations = ({ user }) => {
       </div>
 
       <div className={classes["user-prefered-locations"]}>
-        <h1>Preferred Locations</h1>
+        <h1 className={classes["prefered_header"]}>Preferred Locations</h1>
         {user?.preferredLocations?.length > 0 ? (
           <div className={classes["user-locations"]}>
             {user.preferredLocations.map((el, i) => {
               return (
-                <div className={classes["projects-section-info"]} key={i}>
+                <div className={classes["user-location"]} key={i}>
                   {el}
                 </div>
               );
